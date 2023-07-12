@@ -1,7 +1,13 @@
-import {Sequelize} from "sequelize";
+import {Sequelize} from "sequelize"
 
-// Sequelize(db name, username, password)
-export const sequelize = new Sequelize("db-proyecto", "postgres", "Restless1", {
-    host: "localhost", 
-    dialect: "postgres"
-})
+export const sequelize = new Sequelize(
+    process.env.DATABASE_URL,
+    {
+        dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false
+            }
+        }
+    }
+)
