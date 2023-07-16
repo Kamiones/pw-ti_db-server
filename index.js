@@ -4,6 +4,8 @@ import bodyParser from 'body-parser';
 import {sequelize} from './database/database.js';
 
 import {Calificaciones} from './models/Calificaciones.js';
+import {Carreras_Cursos} from './models/Carreras_Cursos.js';
+import {Carreras_Usuarios} from './models/Carreras_Usuarios.js';
 import {Carreras} from './models/Carreras.js';
 import {Citas} from './models/Citas.js';
 import {Cursos_Usuarios} from './models/Cursos_Usuarios.js';
@@ -26,13 +28,17 @@ app.use(bodyParser.json());
 async function checkConnection() {
     try {
         await sequelize.authenticate();
-        await sequelize.sync();
+        await sequelize.sync({force: true});
         console.log("Conexión a base de datos exitosa.");
     }
     catch(err) {
         console.log("Conexión a base de datos fallida. " + err);
     }
 }
+
+app.post("/registrar-usuario/:", async function(req, res) {
+    
+})
 
 app.get("/mostrar-usuario", async function(req, res) {
     const usuario = await Usuarios.findAll();

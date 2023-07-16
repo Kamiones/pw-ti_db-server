@@ -14,6 +14,18 @@ export const Usuarios = sequelize.define(
             autoIncrement: true
         },
 
+        correo: {
+            type: DataTypes.STRING
+        },
+
+        username: {
+            type: DataTypes.STRING
+        },
+
+        password: {
+            type: DataTypes.STRING
+        },
+
         nombres: {
             type: DataTypes.STRING,
         },
@@ -38,17 +50,14 @@ export const Usuarios = sequelize.define(
             type: DataTypes.BLOB
         },
 
-        correo: {
+        titulo: {
             type: DataTypes.STRING
         },
 
-        username: {
-            type: DataTypes.STRING
-        },
-
-        password: {
+        presentacion: {
             type: DataTypes.STRING
         }
+
     }, {
         freezeTableName: true
     }

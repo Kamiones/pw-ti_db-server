@@ -9,6 +9,10 @@ export const Citas = sequelize.define(
             autoIncrement: true
         },
 
+        estado: {
+            type: DataTypes.BOOLEAN
+        },
+
         fecha: {
             type: DataTypes.DATE
         },

@@ -1,6 +1,7 @@
 import {DataTypes} from "sequelize";
 import {sequelize} from "../database/database.js";
 import {Carreras} from "./Carreras.js";
+import {Usuarios} from "./Usuarios.js";
 
 export const Universidades = sequelize.define(
     "Universidades", {
@@ -23,3 +24,9 @@ Universidades.hasMany(Carreras, {
 })
 
 Carreras.belongsTo(Universidades)
+
+Universidades.hasMany(Usuarios, {
+    foreignKey: "idUniversidad"
+})
+
+Usuarios.belongsTo(Universidades)

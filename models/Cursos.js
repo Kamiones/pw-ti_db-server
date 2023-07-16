@@ -1,7 +1,7 @@
 import {DataTypes} from "sequelize";
 import {sequelize} from "../database/database.js";
-import {Usuarios} from "./Usuarios.js";
 import {Cursos_Usuarios} from "./Cursos_Usuarios.js";
+import {Usuarios} from "./Usuarios.js";
 
 export const Cursos = sequelize.define(
     "Cursos", {

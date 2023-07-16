@@ -9,14 +9,15 @@ export const Horarios = sequelize.define(
             primaryKey: true,
             autoIncrement: true
         },
+        
+        disponibilidad: {
+            type: DataTypes.BOOLEAN
+        },
 
         fecha: {
             type: DataTypes.DATE
-        },
-
-        disponibilidad: {
-            type: DataTypes.BOOLEAN
         }
+
     }, {
         freezeTableName: true
     }
