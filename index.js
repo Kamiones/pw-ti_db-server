@@ -40,7 +40,7 @@ app.post("/registrar-usuario/:", async function(req, res) {
     
 })
 
-app.get("/mostrar-usuario", async function(req, res) {
+app.get("/mostrar-usuarios", async function(req, res) {
     const usuario = await Usuarios.findAll();
     res.send(usuario);
 })
