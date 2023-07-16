@@ -2,9 +2,7 @@ import {DataTypes} from "sequelize";
 import {sequelize} from "../database/database.js";
 import {Calificaciones} from "./Calificaciones.js";
 import {Citas} from "./Citas.js";
-import {Cursos} from "./Cursos.js";
 import {Horarios} from "./Horarios.js";
-import {Cursos_Usuarios} from "./Cursos_Usuarios.js";
 import {Usuarios_Calificaciones} from "./Usuarios_Calificaciones.js";
 import {Usuarios_Citas} from "./Usuarios_Citas.js";
 
@@ -60,14 +58,20 @@ Usuarios.hasMany(Horarios, {
     foreignKey: 'idUsuario'
 })
 
-Usuarios.belongsToMany(Calificaciones, {
-    through: Usuarios_Calificaciones
-})
+Horarios.belongsTo(Usuarios)
 
 Usuarios.belongsToMany(Citas, {
     through: Usuarios_Citas
 })
 
-Usuarios.belongsToMany(Cursos, {
-    through: Cursos_Usuarios
+Citas.belongsToMany(Usuarios, {
+    through: Usuarios_Citas
+})
+
+Usuarios.belongsToMany(Calificaciones, {
+    through: Usuarios_Calificaciones
+})
+
+Calificaciones.belongsToMany(Usuarios, {
+    through: Usuarios_Calificaciones
 })

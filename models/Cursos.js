@@ -22,3 +22,7 @@ export const Cursos = sequelize.define(
 Cursos.belongsToMany(Usuarios, {
     through: Cursos_Usuarios
 })
+
+Usuarios.belongsToMany(Cursos, {
+    through: Cursos_Usuarios
+})

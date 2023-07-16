@@ -1,8 +1,6 @@
 import {DataTypes} from "sequelize";
 import {sequelize} from "../database/database.js";
-import {Rangos} from "./Rangos.js";
-import {Usuarios} from "./Usuarios.js";
-import {Rangos_Horarios} from "./Rangos_Horarios.js";
+import {Citas} from "./Citas.js";
 
 export const Horarios = sequelize.define(
     "Horarios", {
@@ -24,8 +22,8 @@ export const Horarios = sequelize.define(
     }
 )
 
-Horarios.belongsTo(Usuarios)
-
-Horarios.belongsToMany(Rangos, {
-    through: Rangos_Horarios
+Horarios.hasOne(Citas, {
+    foreignKey: "idHorario"
 })
+
+Citas.belongsTo(Horarios)

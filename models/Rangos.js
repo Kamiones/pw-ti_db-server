@@ -26,3 +26,7 @@ export const Rangos = sequelize.define(
 Rangos.belongsToMany(Horarios, {
     through: Rangos_Horarios
 })
+
+Horarios.belongsToMany(Rangos, {
+    through: Rangos_Horarios
+})

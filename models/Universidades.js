@@ -21,3 +21,5 @@ export const Universidades = sequelize.define(
 Universidades.hasMany(Carreras, {
     foreignKey: "idUniversidad"
 })
+
+Carreras.belongsTo(Universidades)

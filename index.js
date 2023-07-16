@@ -3,16 +3,17 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import {sequelize} from './database/database.js';
 
-import {Rangos_Horarios} from './models/Rangos_Horarios.js';
-import {Cursos_Usuarios} from './models/Cursos_Usuarios.js';
-import {Usuarios_Calificaciones} from './models/Usuarios_Calificaciones.js';
-import {Usuarios_Citas} from './models/Usuarios_Citas.js';
+import {Calificaciones} from './models/Calificaciones.js';
 import {Carreras} from './models/Carreras.js';
 import {Citas} from './models/Citas.js';
+import {Cursos_Usuarios} from './models/Cursos_Usuarios.js';
 import {Cursos} from './models/Cursos.js';
 import {Horarios} from './models/Horarios.js';
+import {Rangos_Horarios} from './models/Rangos_Horarios.js';
 import {Rangos} from './models/Rangos.js'
 import {Universidades} from './models/Universidades.js';
+import {Usuarios_Calificaciones} from './models/Usuarios_Calificaciones.js';
+import {Usuarios_Citas} from './models/Usuarios_Citas.js';
 import {Usuarios} from './models/Usuarios.js';
 
 const app = express();
@@ -34,11 +35,7 @@ async function checkConnection() {
 }
 
 app.get("/mostrar-usuario", async function(req, res) {
-    const usuario = await Usuarios.findAll({
-        where: {
-            id: 1
-        }
-    });
+    const usuario = await Usuarios.findAll();
     res.send(usuario);
 })
 

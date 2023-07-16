@@ -1,7 +1,5 @@
 import {DataTypes} from "sequelize";
 import {sequelize} from "../database/database.js";
-import {Usuarios} from "./Usuarios.js";
-import {Usuarios_Calificaciones} from "./Usuarios_Calificaciones.js";
 
 export const Calificaciones = sequelize.define(
     "Calificaciones", {
@@ -26,7 +24,3 @@ export const Calificaciones = sequelize.define(
         freezeTableName: true
     }
 )
-
-Calificaciones.belongsToMany(Usuarios, {
-    through: Usuarios_Calificaciones
-})
