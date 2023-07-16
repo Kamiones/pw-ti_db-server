@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 async function checkConnection() {
     try {
         await sequelize.authenticate();
-        await sequelize.sync({force: true});
+        await sequelize.sync();
         console.log("Conexión a base de datos exitosa.");
     }
     catch(err) {
@@ -36,16 +36,15 @@ async function checkConnection() {
     }
 }
 
-app.post("/registrar-usuario/:", async function(req, res) {
-    
-})
-
 app.get("/mostrar-usuarios", async function(req, res) {
     const usuario = await Usuarios.findAll();
     res.send(usuario);
 })
 
+app.post("/registrar-usuario/:", async function(req, res) {
+    
+})
+
 app.listen(port, function() {
-    console.log(`Servidor fucionando en el puerto ${port}.`);
     checkConnection();
 })
