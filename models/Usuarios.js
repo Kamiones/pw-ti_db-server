@@ -1,5 +1,12 @@
 import {DataTypes} from "sequelize";
 import {sequelize} from "../database/database.js";
+import {Calificaciones} from "./Calificaciones.js";
+import {Citas} from "./Citas.js";
+import {Cursos} from "./Cursos.js";
+import {Horarios} from "./Horarios.js";
+import {Cursos_Usuarios} from "./Cursos_Usuarios.js";
+import {Usuarios_Calificaciones} from "./Usuarios_Calificaciones.js";
+import {Usuarios_Citas} from "./Usuarios_Citas.js";
 
 export const Usuarios = sequelize.define(
     "Usuarios", {
@@ -18,29 +25,49 @@ export const Usuarios = sequelize.define(
         },
 
         tipo_doc: {
-            type: DataTypes.STRING
+            type: DataTypes.BOOLEAN
         },
 
-        numero: {
-            type: DataTypes.STRING
+        numero_doc: {
+            type: DataTypes.INTEGER
         },
 
         rol: {
             type: DataTypes.BOOLEAN
         },
 
-        usuario_nombre: {
-            type: DataTypes.STRING
-        },
-
-        contraseña: {
-            type: DataTypes.STRING
-        },
-
         foto: {
+            type: DataTypes.BLOB
+        },
+
+        correo: {
+            type: DataTypes.STRING
+        },
+
+        username: {
+            type: DataTypes.STRING
+        },
+
+        password: {
             type: DataTypes.STRING
         }
     }, {
         freezeTableName: true
     }
 )
+
+Usuarios.hasMany(Horarios, {
+    foreignKey: 'idUsuario'
+})
+
+Usuarios.belongsToMany(Calificaciones, {
+    through: Usuarios_Calificaciones
+})
+
+Usuarios.belongsToMany(Citas, {
+    through: Usuarios_Citas
+})
+
+Usuarios.belongsToMany(Cursos, {
+    through: Cursos_Usuarios
+})

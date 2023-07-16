@@ -1,5 +1,7 @@
 import {DataTypes} from "sequelize";
 import {sequelize} from "../database/database.js";
+import {Cursos} from "./Cursos.js";
+import {Universidades} from "./Universidades.js";
 
 export const Carreras = sequelize.define(
     "Carreras", {
@@ -16,3 +18,6 @@ export const Carreras = sequelize.define(
         freezeTableName: true
     }
 )
+
+Carreras.hasMany(Cursos)
+Carreras.belongsTo(Universidades)

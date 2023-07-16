@@ -1,31 +1,28 @@
 import {DataTypes} from "sequelize";
 import {sequelize} from "../database/database.js";
-import {Rangos} from "./Rangos.js";
-import {Usuarios} from "./Usuarios.js";
+import {Horarios} from "./Horarios.js";
 import {Rangos_Horarios} from "./Rangos_Horarios.js";
 
-export const Horarios = sequelize.define(
-    "Horarios", {
+export const Rangos = sequelize.define(
+    "Rangos", {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
 
-        fecha: {
-            type: DataTypes.DATE
+        hora_inicio: {
+            type: DataTypes.INTEGER
         },
 
-        disponibilidad: {
-            type: DataTypes.BOOLEAN
+        hora_fin: {
+            type: DataTypes.INTEGER
         }
     }, {
         freezeTableName: true
     }
 )
 
-Horarios.belongsTo(Usuarios)
-
-Horarios.belongsToMany(Rangos, {
+Rangos.belongsToMany(Horarios, {
     through: Rangos_Horarios
 })

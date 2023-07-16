@@ -9,8 +9,8 @@ export const Citas = sequelize.define(
             autoIncrement: true
         },
 
-        hora_inicio: {
-            type: DataTypes.TIME
+        fecha: {
+            type: DataTypes.DATE
         },
 
         link: {
