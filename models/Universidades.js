@@ -25,8 +25,6 @@ Universidades.hasMany(Carreras, {
 
 Carreras.belongsTo(Universidades)
 
-Universidades.hasMany(Usuarios, {
-    foreignKey: "idUniversidad"
-})
+Universidades.hasMany(Usuarios)
 
 Usuarios.belongsTo(Universidades)
