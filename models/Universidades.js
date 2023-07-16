@@ -23,8 +23,14 @@ Universidades.hasMany(Carreras, {
     foreignKey: "idUniversidad"
 })
 
-Carreras.belongsTo(Universidades)
+Carreras.belongsTo(Universidades, {
+    foreignKey: "idUniversidad"
+})
 
-Universidades.hasMany(Usuarios)
+Universidades.hasMany(Usuarios, {
+    foreignKey: "idUniversidad"
+})
 
-Usuarios.belongsTo(Universidades)
+Usuarios.belongsTo(Universidades, {
+    foreignKey: "idUniversidad"
+})

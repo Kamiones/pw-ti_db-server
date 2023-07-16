@@ -68,7 +68,9 @@ Usuarios.hasMany(Horarios, {
     foreignKey: 'idUsuario'
 })
 
-Horarios.belongsTo(Usuarios)
+Horarios.belongsTo(Usuarios, {
+    foreignKey: 'idUsuario'
+})
 
 Usuarios.belongsToMany(Citas, {
     through: Usuarios_Citas

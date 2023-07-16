@@ -27,4 +27,6 @@ Horarios.hasOne(Citas, {
     foreignKey: "idHorario"
 })
 
-Citas.belongsTo(Horarios)
+Citas.belongsTo(Horarios, {
+    foreignKey: "idHorario"
+})

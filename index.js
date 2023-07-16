@@ -45,10 +45,6 @@ app.get("/mostrar-usuarios", async function(req, res) {
     res.send(usuario);
 })
 
-app.get("/", async function(req, res) {
-    res.send("Consulta realizada.");
-})
-
 app.listen(port, function() {
     console.log(`Servidor fucionando en el puerto ${port}.`);
     checkConnection();
