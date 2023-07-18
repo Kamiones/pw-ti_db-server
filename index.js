@@ -36,15 +36,20 @@ async function checkConnection() {
     }
 }
 
-app.get("/mostrar-usuarios", async function(req, res) {
-    const usuario = await Usuarios.findAll();
+app.get("/mostrar-usuarios/:id", async function(req, res) {
+    var id=req.params.id;
+    const usuario = await Usuarios.findAll({
+        where:{
+            id:id
+        }
+    });
     res.send(usuario);
 })
 
-app.post("/registrar-usuario/:", async function(req, res) {
+app.post("/registrar-usuario", async function(req, res) {
     
 })
 
 app.listen(port, function() {
-    checkConnection();
+    
 })
