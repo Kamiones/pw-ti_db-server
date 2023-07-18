@@ -51,5 +51,5 @@ app.post("/registrar-usuario", async function(req, res) {
 })
 
 app.listen(port, function() {
-    
+    checkConnection()
 })
