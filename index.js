@@ -46,6 +46,16 @@ app.get("/mostrar-usuarios/:id", async function(req, res) {
     res.send(usuario);
 })
 
+app.get("/mostrar-usuarios", async function(req, res) {
+    var id=req.params.id;
+    const usuario = await Usuarios.findAll({
+        where:{
+            id:id
+        }
+    });
+    res.send(usuario);
+})
+
 app.post("/registrar-usuario", async function(req, res) {
     
 })
