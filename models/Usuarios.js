@@ -47,7 +47,7 @@ export const Usuarios = sequelize.define(
         },
 
         foto: {
-            type: DataTypes.BLOB
+            type: DataTypes.STRING
         },
 
         titulo: {
