@@ -15,11 +15,13 @@ export const Usuarios = sequelize.define(
         },
 
         correo: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            unique: true
         },
 
         username: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            unique: true
         },
 
         password: {
@@ -39,7 +41,8 @@ export const Usuarios = sequelize.define(
         },
 
         numero_doc: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            unique: true
         },
 
         rol: {
