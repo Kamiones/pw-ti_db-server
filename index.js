@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import session from 'express-session';
 import {sequelize} from './database/database.js';
 
 import {Calificaciones} from './models/Calificaciones.js';
@@ -22,7 +23,7 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 app.use(cors())
-
+app.use(session({secret: "soft"}));
 app.use(bodyParser.json());
 
 async function checkConnection() {
@@ -55,6 +56,23 @@ app.post("/registrar-usuario", async function(req, res) {
     
 })
 
-app.listen(port, function() {
-    checkConnection()
+app.post("/login", async function(req, res){
+    if(!req.body.username || !req.body.password){
+        return res.status(400).send({message: "Usuario y contraseña son campos obligatorios"})
+    }
+    const usuario = await Usuarios.findOne({
+        where: {
+            username: req.body.username,
+        }
+    })
+    if(!usuario || usuario.password !== req.body.password){
+        return res.status(401).send({message: "Usuario no autorizado"})
+    }
+    // INITIALIZE COOCKIE SESSION
+    req.session.usuario=usuario.toJSON();
+    return res.status(200).send(usuario.toJSON());
+})
+
+app.listen(port, async function() {
+    await checkConnection()
 })
