@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 async function checkConnection() {
     try {
         await sequelize.authenticate();
-        await sequelize.sync();
+        await sequelize.sync({force: true});
         console.log("Conexión a base de datos exitosa.");
     }
     catch(err) {
