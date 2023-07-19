@@ -39,7 +39,7 @@ export const Usuarios = sequelize.define(
         },
 
         numero_doc: {
-            type: DataTypes.INTEGER
+            type: DataTypes.STRING
         },
 
         rol: {
