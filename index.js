@@ -54,6 +54,26 @@ app.post("/registrar-usuario", async function(req, res) {
     
 })
 
+app.get('/citas/:username',async (req,res)=>{
+
+    const usuario = await Usuarios.findOne({
+        where: {
+          username: req.params.username
+        }
+      });
+
+      if (!usuario) {
+        return res.status(404).send('Usuario no encontrado');
+      }
+
+      const citas = await Citas.findAll({
+        where: {
+          idUsuario: usuario.id
+        }
+      });
+    res.send("Citas dadas");
+})
+
 app.post("/login", async function(req, res){
     if(!req.body.username || !req.body.password){
         return res.status(400).send({message: "Usuario y contraseña son campos obligatorios"})
