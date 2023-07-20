@@ -19,7 +19,8 @@ export const Rangos = sequelize.define(
             type: DataTypes.INTEGER
         }
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false
     }
 )
 

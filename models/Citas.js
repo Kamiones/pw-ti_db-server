@@ -21,6 +21,7 @@ export const Citas = sequelize.define(
             type: DataTypes.STRING
         }
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false
     }
 )
