@@ -1,7 +1,6 @@
 import {DataTypes} from "sequelize";
 import {sequelize} from "../database/database.js";
 import {Carreras_Cursos} from "./Carreras_Cursos.js"
-import {Carreras_Usuarios} from "./Carreras_Usuarios.js"
 import {Cursos} from "./Cursos.js";
 import {Usuarios} from "./Usuarios.js";
 
@@ -29,10 +28,10 @@ Cursos.belongsToMany(Carreras, {
     through: Carreras_Cursos
 })
 
-Carreras.belongsToMany(Usuarios, {
-    through: Carreras_Usuarios
+Carreras.hasMany(Usuarios, {
+    foreignKey: 'idCarrera'
 })
 
-Usuarios.belongsToMany(Carreras, {
-    through: Carreras_Usuarios
+Usuarios.belongsTo(Carreras, {
+    foreignKey: 'idCarrera'
 })

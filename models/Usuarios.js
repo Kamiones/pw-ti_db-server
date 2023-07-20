@@ -4,7 +4,6 @@ import {Calificaciones} from "./Calificaciones.js";
 import {Citas} from "./Citas.js";
 import {Horarios} from "./Horarios.js";
 import {Usuarios_Calificaciones} from "./Usuarios_Calificaciones.js";
-import {Usuarios_Citas} from "./Usuarios_Citas.js";
 
 export const Usuarios = sequelize.define(
     "Usuarios", {
@@ -75,12 +74,12 @@ Horarios.belongsTo(Usuarios, {
     foreignKey: 'idUsuario'
 })
 
-Usuarios.belongsToMany(Citas, {
-    through: Usuarios_Citas
+Usuarios.hasMany(Citas, {
+    foreignKey: 'idUsuario'
 })
 
-Citas.belongsToMany(Usuarios, {
-    through: Usuarios_Citas
+Citas.belongsTo(Usuarios, {
+    foreignKey: 'idUsuario'
 })
 
 Usuarios.belongsToMany(Calificaciones, {
