@@ -217,6 +217,110 @@ app.get('/usuarios/:username', async (req, res) => {
     }
   });
 
+app.get("/mi-perfil/cargar/usuario/:id", async function(req, res) {
+    var id = req.params.id;
+    const usuario = await Usuarios.findOne({
+        where: {
+            id: id
+        }
+    });
+    res.send(usuario)
+})
+
+app.get("/mi-perfil/cargar/universidades", async function(req, res) {
+    const universidades = await Universidades.findAll();
+    res.send(universidades)
+})
+
+app.get("/mi-perfil/cargar/carreras/:idUniversidad", async function(req, res) {
+    const carreras = await Carreras.findAll({
+        where: {
+            idUniversidad: req.params.idUniversidad === 'null' ? null : req.params.idUniversidad
+        }
+    });
+    res.send(carreras)
+})
+
+app.get("/mi-perfil/cargar/cursos/:idCarrera", async function(req, res) {
+    const cursos = await Carreras.findOne({
+        where: {
+            id: req.params.idCarrera
+        },
+        include: Cursos
+    });
+    res.send(cursos)
+})
+
+app.get("/mi-perfil/guardar/:idUsuario/:password/:nombres/:apellidos/:tipo/:numero/:rol/:titulo/:presentacion/:idCarrera/:idUniversidad", async function(req, res) {
+    await Usuarios.update(
+        {
+            password: req.params.password,
+            nombres: req.params.nombres,
+            apellidos: req.params.apellidos,
+            tipo_doc: req.params.tipo,
+            numero_doc: req.params.numero,
+            rol: req.params.rol,
+            titulo: req.params.titulo,
+            presentacion: req.params.presentacion,
+            idCarrera: req.params.idCarrera === 'null' ? null : req.params.idCarrera,
+            idUniversidad: req.params.idUniversidad === 'null' ? null : req.params.idUniversidad
+        }, {
+            where: {
+                id: req.params.idUsuario
+            }
+        }
+    )
+    res.send("Actualización exitosa.")
+})
+
+app.get("/mis-horarios/cargar/horarios/:idUsuario", async function(req, res) {
+    const horarios = await Horarios.findAll({
+        where: {
+            idUsuario: req.params.idUsuario
+        },
+        include: Rangos
+    });
+    res.send(horarios)
+})
+
+app.get("/mis-horarios/guardar/:fecha/:idUsuario/:horaInicio", async function(req, res) {
+    const horario = await Horarios.create({
+        disponibilidad: true,
+        fecha: req.params.fecha,
+        idUsuario: req.params.idUsuario
+    })
+    const rango = await Rangos.findOne({
+        where: {
+            hora_inicio: req.params.horaInicio
+        }
+    })
+    await horario.addRango(rango)
+
+    res.send("Horario registrado.");
+})
+
+app.get("/mis-horarios/borrar/horario/:idHorario", async function(req, res) {
+    await Horarios.destroy({
+        where: {
+            id: req.params.idHorario
+        }
+    })
+    res.send("Horario eliminado");
+})
+
+app.get("/mi-perfil/guardar/foto/:idUsuario/:link", async function(req, res) {
+    await Usuarios.update(
+        {
+            foto: req.params.link
+        }, {
+            where: {
+                id: req.params.idUsuario
+            }
+        }
+    )
+    res.send("Actualización exitosa.")
+})
+
 
 app.listen(port, async function() {
     await checkConnection()
