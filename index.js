@@ -50,8 +50,18 @@ app.get("/mostrar-usuarios", async function(req, res) {
     res.send(usuario);
 })
 
-app.post("/registrar-usuario", async function(req, res) {
-    
+app.get("/registrar-usuario/:correo/:password/:nombres/:tipo_documento/:rol/:apellidos/:numero_documento", async function(req, res) {
+    const usuario = Usuarios.create({
+        correo:req.params.correo,
+        passsword:req.params.password,
+        nombres:req.params.nombres,
+        tipo_doc:req.params.tipo_documento,
+        rol:req.params.rol,
+        apellidos:req.params.apellidos,
+        numero_doc:req.params.numero_documento,
+    })
+
+    res.send(usuario);
 })
 
 app.get('/citas/:username',async (req,res)=>{
