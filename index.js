@@ -171,6 +171,53 @@ app.post("/login", async function(req, res){
     return res.status(200).send(usuario.toJSON());
 })
 
+app.get('/usuarios/:username', async (req, res) => {
+    try {
+      const username = req.params.username;
+  
+      // Realizar una consulta a la base de datos para obtener el usuario por su username y todas las relaciones
+      const usuario = await Usuarios.findOne({
+        where: { username },
+        include: [
+          {
+            model: Citas,
+          },
+          {
+            model: Carreras,
+          },
+        ],
+      });
+  
+      if (!usuario) {
+        return res.status(404).json({ error: 'Usuario no encontrado' });
+      }
+  
+      res.json(usuario);
+    } catch (error) {
+      console.error('Error al obtener información del usuario:', error);
+      res.status(500).json({ error: 'Hubo un error al procesar la solicitud' });
+    }
+  });
+
+  app.get('/citas/buscar-por-fecha', async (req, res) => {
+    try {
+      const fechaDisponibilidad = req.query.fecha;
+  
+      // Realiza una consulta a la base de datos para buscar citas por fecha de disponibilidad
+      const citasPorFecha = await Citas.findAll({
+        where: {
+          fecha: fechaDisponibilidad,
+        },
+      });
+  
+      res.json(citasPorFecha);
+    } catch (error) {
+      console.error('Error al obtener las citas:', error);
+      res.status(500).json({ error: 'Hubo un error al procesar la solicitud' });
+    }
+  });
+
+
 app.listen(port, async function() {
     await checkConnection()
 })
