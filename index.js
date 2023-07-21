@@ -27,14 +27,84 @@ app.use(bodyParser.json());
 async function checkConnection() {
     try {
         await sequelize.authenticate();
-        await sequelize.sync();
+        await sequelize.sync(
+          
+        );
         console.log("Conexión a base de datos exitosa.");
     }
     catch(err) {
         console.log("Conexión a base de datos fallida. " + err);
     }
 }
+app.get("/ver-citas-futuras-profesor/:id", async function(req, res) {
+  var idProfesor=(req.params.id);
+  // Devuelve todas las citas pasadas
+  const citas = await Citas.findAll({
+      where: {
+        estado: true // Futura cita
+      },
+      include: [{
+        model: Usuarios // Info del Alumno
+      }, {
+        model: Horarios,
+        where: {
+          idUsuario: idProfesor // Del profesor de la sesión
+        },
+        include: [ {
+          model: Rangos 
+        }]
+      }]
+    });
+    
+  
+  res.send(citas);
+})
 
+// Retorna las citas pasadas de un alumno
+app.get("/ver-citas-pasadas-alumno/:id", async function(req, res) {
+  var idAlumno=(req.params.id);
+  // Devuelve todas las citas pasadas
+  const citas = await Citas.findAll({
+      where: {
+        estado: false, // cita pasada
+        idUsuario: idAlumno // es de la sesión del alumno
+      },
+      include: [{
+          model: Horarios, // Horario Profesor
+          include: [{
+            model: Usuarios // Profesor
+          }, {
+            model: Rangos, // Rango Profesor
+            
+          }]
+        }]
+      });
+    
+  
+  res.send(citas);
+})
+// Retorna las citas futuras de un alumno
+app.get("/ver-citas-futuras-alumno/:id", async function(req, res) {
+  var idAlumno=(req.params.id);
+  // Devuelve todas las citas pasadas
+  const citas = await Citas.findAll({
+      where: {
+        estado: true, // cita futura
+        idUsuario: idAlumno // es de la sesión del alumno
+      },
+      include: [{
+          model: Horarios, // Horario Profesor
+          include: [{
+            model: Usuarios // Profesor
+          }, {
+            model: Rangos // Rango Profesor
+          }]
+        }]
+      });
+    
+  
+  res.send(citas);
+})
 app.get("/mostrar-usuarios/:id", async function(req, res) {
     var id=req.params.id;
     const usuario = await Usuarios.findAll({
