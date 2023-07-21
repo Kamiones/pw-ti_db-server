@@ -94,3 +94,31 @@ app.post("/login", async function(req, res){
 app.listen(port, async function() {
     await checkConnection()
 })
+
+app.get('/usuarios/:username', async (req, res) => {
+  try {
+    const username = req.params.username;
+
+    // Realizar una consulta a la base de datos para obtener el usuario por su username y todas las relaciones
+    const usuario = await Usuarios.findOne({
+      where: { username },
+      include: [
+        {
+          model: Citas,
+        },
+        {
+          model: Carreras,
+        },
+      ],
+    });
+
+    if (!usuario) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+    res.json(usuario);
+  } catch (error) {
+    console.error('Error al obtener información del usuario:', error);
+    res.status(500).json({ error: 'Hubo un error al procesar la solicitud' });
+  }
+});
